@@ -1,0 +1,713 @@
+{
+  "schemaVersion": 1,
+  "snapshot": true,
+  "refreshStatus": "ok",
+  "fetchedAt": "2026-11-12T13:55:21.364641+00:00",
+  "areas": [
+    {
+      "id": "POI068",
+      "names": {
+        "ko": "성수카페거리",
+        "en": "Seongsu Cafe Street",
+        "ja": "聖水カフェ通り",
+        "zh": "圣水咖啡街"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              127.049666,
+              37.544424
+            ],
+            [
+              127.049527,
+              37.544033
+            ],
+            [
+              127.051568,
+              37.542898
+            ],
+            [
+              127.051038,
+              37.542025
+            ],
+            [
+              127.053621,
+              37.542064
+            ],
+            [
+              127.054502,
+              37.54102
+            ],
+            [
+              127.055056,
+              37.539656
+            ],
+            [
+              127.057299,
+              37.540718
+            ],
+            [
+              127.057426,
+              37.540979
+            ],
+            [
+              127.061847,
+              37.539616
+            ],
+            [
+              127.062226,
+              37.539186
+            ],
+            [
+              127.062989,
+              37.540491
+            ],
+            [
+              127.063926,
+              37.542195
+            ],
+            [
+              127.064235,
+              37.542757
+            ],
+            [
+              127.05063,
+              37.546891
+            ],
+            [
+              127.050018,
+              37.545325
+            ],
+            [
+              127.049666,
+              37.544424
+            ]
+          ]
+        ]
+      },
+      "category": "발달상권",
+      "populationMin": 18000,
+      "populationMax": 20000,
+      "congestionLevel": "여유",
+      "observedAt": "2026-11-12T22:00:00+09:00",
+      "chartReferenceAt": "2026-11-12T22:00:00+09:00",
+      "observedAtPrecision": "hour",
+      "observedAtMeaning": "dashboard_hour_label_not_exact_measurement_time",
+      "measurementTime": null,
+      "timeReferenceMayBeRounded": true,
+      "spatialDataObservedAt": "2026-11-12T22:25:00+09:00",
+      "spatialDataTimeMeaning": "separate_heatmap_latest_time_not_population_count_timestamp",
+      "history": [
+        {
+          "time": "2026-11-12T10:00:00+09:00",
+          "min": 30000,
+          "max": 32000,
+          "congestionLevel": "보통",
+          "sourceLabel": "10시"
+        },
+        {
+          "time": "2026-11-12T11:00:00+09:00",
+          "min": 32000,
+          "max": 34000,
+          "congestionLevel": "보통",
+          "sourceLabel": "11시"
+        },
+        {
+          "time": "2026-11-12T12:00:00+09:00",
+          "min": 36000,
+          "max": 38000,
+          "congestionLevel": "보통",
+          "sourceLabel": "12시"
+        },
+        {
+          "time": "2026-11-12T13:00:00+09:00",
+          "min": 40000,
+          "max": 42000,
+          "congestionLevel": "보통",
+          "sourceLabel": "13시"
+        },
+        {
+          "time": "2026-11-12T14:00:00+09:00",
+          "min": 40000,
+          "max": 42000,
+          "congestionLevel": "보통",
+          "sourceLabel": "14시"
+        },
+        {
+          "time": "2026-11-12T15:00:00+09:00",
+          "min": 40000,
+          "max": 42000,
+          "congestionLevel": "보통",
+          "sourceLabel": "15시"
+        },
+        {
+          "time": "2026-11-12T16:00:00+09:00",
+          "min": 40000,
+          "max": 42000,
+          "congestionLevel": "보통",
+          "sourceLabel": "16시"
+        },
+        {
+          "time": "2026-11-12T17:00:00+09:00",
+          "min": 36000,
+          "max": 38000,
+          "congestionLevel": "보통",
+          "sourceLabel": "17시"
+        },
+        {
+          "time": "2026-11-12T18:00:00+09:00",
+          "min": 34000,
+          "max": 36000,
+          "congestionLevel": "보통",
+          "sourceLabel": "18시"
+        },
+        {
+          "time": "2026-11-12T19:00:00+09:00",
+          "min": 32000,
+          "max": 34000,
+          "congestionLevel": "보통",
+          "sourceLabel": "19시"
+        },
+        {
+          "time": "2026-11-12T20:00:00+09:00",
+          "min": 26000,
+          "max": 28000,
+          "congestionLevel": "보통",
+          "sourceLabel": "20시"
+        },
+        {
+          "time": "2026-11-12T21:00:00+09:00",
+          "min": 22000,
+          "max": 24000,
+          "congestionLevel": "보통",
+          "sourceLabel": "21시"
+        }
+      ],
+      "forecast": [
+        {
+          "time": "2026-11-12T23:00:00+09:00",
+          "min": 14000,
+          "max": 16000,
+          "congestionLevel": "여유",
+          "sourceLabel": "23시"
+        },
+        {
+          "time": "2026-11-13T00:00:00+09:00",
+          "min": 10000,
+          "max": 12000,
+          "congestionLevel": "여유",
+          "sourceLabel": "11/13 0시"
+        },
+        {
+          "time": "2026-11-13T01:00:00+09:00",
+          "min": 8500,
+          "max": 9000,
+          "congestionLevel": "여유",
+          "sourceLabel": "01시"
+        },
+        {
+          "time": "2026-11-13T02:00:00+09:00",
+          "min": 7500,
+          "max": 8000,
+          "congestionLevel": "여유",
+          "sourceLabel": "02시"
+        },
+        {
+          "time": "2026-11-13T03:00:00+09:00",
+          "min": 7500,
+          "max": 8000,
+          "congestionLevel": "여유",
+          "sourceLabel": "03시"
+        },
+        {
+          "time": "2026-11-13T04:00:00+09:00",
+          "min": 7500,
+          "max": 8000,
+          "congestionLevel": "여유",
+          "sourceLabel": "04시"
+        },
+        {
+          "time": "2026-11-13T05:00:00+09:00",
+          "min": 7500,
+          "max": 8000,
+          "congestionLevel": "여유",
+          "sourceLabel": "05시"
+        },
+        {
+          "time": "2026-11-13T06:00:00+09:00",
+          "min": 8000,
+          "max": 8500,
+          "congestionLevel": "여유",
+          "sourceLabel": "06시"
+        },
+        {
+          "time": "2026-11-13T07:00:00+09:00",
+          "min": 10000,
+          "max": 12000,
+          "congestionLevel": "여유",
+          "sourceLabel": "07시"
+        },
+        {
+          "time": "2026-11-13T08:00:00+09:00",
+          "min": 16000,
+          "max": 18000,
+          "congestionLevel": "여유",
+          "sourceLabel": "08시"
+        },
+        {
+          "time": "2026-11-13T09:00:00+09:00",
+          "min": 24000,
+          "max": 26000,
+          "congestionLevel": "보통",
+          "sourceLabel": "09시"
+        },
+        {
+          "time": "2026-11-13T10:00:00+09:00",
+          "min": 30000,
+          "max": 32000,
+          "congestionLevel": "보통",
+          "sourceLabel": "10시"
+        }
+      ],
+      "fetchedAt": "2026-11-12T13:55:21.364641+00:00",
+      "sourceUrl": "https://data.seoul.go.kr/SeoulRtd/map?hotspotNm=%EC%84%B1%EC%88%98%EC%B9%B4%ED%8E%98%EA%B1%B0%EB%A6%AC&x=37.542965&y=127.056595",
+      "datasetUrl": "https://data.seoul.go.kr/dataList/OA-21778/A/1/datasetView.do",
+      "sourceType": "official_dashboard_population_estimate",
+      "verification": "official",
+      "fieldVerified": false,
+      "aggregationAreaDefinition": "Official Seoul 121-hotspot area, downloaded WGS84 polygon; not an administrative or residential boundary.",
+      "geometrySource": {
+        "file": "sources/population/seoul-hotspots-121.zip",
+        "sha256": "fda69cd2ee3812103931cfd0ef1a0146336f06a23b6e1c2e4f9e0653620262ac",
+        "datasetUrl": "https://data.seoul.go.kr/dataList/OA-21778/A/1/datasetView.do",
+        "sourcePublishedDate": "2026-04-14",
+        "crs": "EPSG:4326"
+      },
+      "measurementDescription": "공식 권역에 존재하는 인구의 통신자료 기반 추정 범위입니다. 거주자를 포함하며 관광객 수·보행 통과량이 아닙니다. 인원 차트 기준시각은 시 단위이고 정확한 측정 분은 제공되지 않습니다.",
+      "rawSources": {
+        "population": "sources/population/snapshots/20261112T135521365387Z/seongsu-congestion.json",
+        "latestSpatialTime": "sources/population/snapshots/20261112T135521365387Z/seongsu-latest.json"
+      }
+    },
+    {
+      "id": "POI101",
+      "names": {
+        "ko": "서울숲공원",
+        "en": "Seoul Forest",
+        "ja": "ソウルの森公園",
+        "zh": "首尔林公园"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              127.032095,
+              37.545245
+            ],
+            [
+              127.03178,
+              37.544856
+            ],
+            [
+              127.027744,
+              37.542461
+            ],
+            [
+              127.027586,
+              37.542272
+            ],
+            [
+              127.027507,
+              37.541984
+            ],
+            [
+              127.027539,
+              37.54177
+            ],
+            [
+              127.027649,
+              37.541557
+            ],
+            [
+              127.027822,
+              37.541356
+            ],
+            [
+              127.02809,
+              37.541243
+            ],
+            [
+              127.029477,
+              37.541205
+            ],
+            [
+              127.030596,
+              37.541054
+            ],
+            [
+              127.031557,
+              37.540904
+            ],
+            [
+              127.032676,
+              37.540665
+            ],
+            [
+              127.034977,
+              37.539974
+            ],
+            [
+              127.036347,
+              37.539559
+            ],
+            [
+              127.03786,
+              37.539095
+            ],
+            [
+              127.040633,
+              37.538065
+            ],
+            [
+              127.042823,
+              37.537386
+            ],
+            [
+              127.043532,
+              37.537185
+            ],
+            [
+              127.043785,
+              37.538277
+            ],
+            [
+              127.04376,
+              37.539305
+            ],
+            [
+              127.043751,
+              37.540421
+            ],
+            [
+              127.043986,
+              37.541807
+            ],
+            [
+              127.04203,
+              37.542296
+            ],
+            [
+              127.043199,
+              37.545085
+            ],
+            [
+              127.041409,
+              37.545636
+            ],
+            [
+              127.041818,
+              37.54648
+            ],
+            [
+              127.039366,
+              37.547147
+            ],
+            [
+              127.039259,
+              37.546915
+            ],
+            [
+              127.037683,
+              37.547326
+            ],
+            [
+              127.038206,
+              37.548438
+            ],
+            [
+              127.039212,
+              37.548157
+            ],
+            [
+              127.039402,
+              37.548456
+            ],
+            [
+              127.04242,
+              37.548768
+            ],
+            [
+              127.041933,
+              37.551178
+            ],
+            [
+              127.040388,
+              37.550639
+            ],
+            [
+              127.039773,
+              37.550125
+            ],
+            [
+              127.038512,
+              37.549435
+            ],
+            [
+              127.037975,
+              37.548933
+            ],
+            [
+              127.037597,
+              37.548557
+            ],
+            [
+              127.037266,
+              37.548092
+            ],
+            [
+              127.037045,
+              37.547289
+            ],
+            [
+              127.036665,
+              37.545206
+            ],
+            [
+              127.036523,
+              37.544491
+            ],
+            [
+              127.036523,
+              37.543977
+            ],
+            [
+              127.036476,
+              37.543738
+            ],
+            [
+              127.032095,
+              37.545245
+            ]
+          ]
+        ]
+      },
+      "category": "공원",
+      "populationMin": 2500,
+      "populationMax": 3000,
+      "congestionLevel": "여유",
+      "observedAt": "2026-11-12T22:00:00+09:00",
+      "chartReferenceAt": "2026-11-12T22:00:00+09:00",
+      "observedAtPrecision": "hour",
+      "observedAtMeaning": "dashboard_hour_label_not_exact_measurement_time",
+      "measurementTime": null,
+      "timeReferenceMayBeRounded": true,
+      "spatialDataObservedAt": "2026-11-12T22:25:00+09:00",
+      "spatialDataTimeMeaning": "separate_heatmap_latest_time_not_population_count_timestamp",
+      "history": [
+        {
+          "time": "2026-11-12T10:00:00+09:00",
+          "min": 3500,
+          "max": 4000,
+          "congestionLevel": "여유",
+          "sourceLabel": "10시"
+        },
+        {
+          "time": "2026-11-12T11:00:00+09:00",
+          "min": 3500,
+          "max": 4000,
+          "congestionLevel": "여유",
+          "sourceLabel": "11시"
+        },
+        {
+          "time": "2026-11-12T12:00:00+09:00",
+          "min": 3500,
+          "max": 4000,
+          "congestionLevel": "여유",
+          "sourceLabel": "12시"
+        },
+        {
+          "time": "2026-11-12T13:00:00+09:00",
+          "min": 4000,
+          "max": 4500,
+          "congestionLevel": "여유",
+          "sourceLabel": "13시"
+        },
+        {
+          "time": "2026-11-12T14:00:00+09:00",
+          "min": 4000,
+          "max": 4500,
+          "congestionLevel": "여유",
+          "sourceLabel": "14시"
+        },
+        {
+          "time": "2026-11-12T15:00:00+09:00",
+          "min": 4500,
+          "max": 5000,
+          "congestionLevel": "보통",
+          "sourceLabel": "15시"
+        },
+        {
+          "time": "2026-11-12T16:00:00+09:00",
+          "min": 5000,
+          "max": 5500,
+          "congestionLevel": "보통",
+          "sourceLabel": "16시"
+        },
+        {
+          "time": "2026-11-12T17:00:00+09:00",
+          "min": 4500,
+          "max": 5000,
+          "congestionLevel": "보통",
+          "sourceLabel": "17시"
+        },
+        {
+          "time": "2026-11-12T18:00:00+09:00",
+          "min": 4000,
+          "max": 4500,
+          "congestionLevel": "여유",
+          "sourceLabel": "18시"
+        },
+        {
+          "time": "2026-11-12T19:00:00+09:00",
+          "min": 3500,
+          "max": 4000,
+          "congestionLevel": "여유",
+          "sourceLabel": "19시"
+        },
+        {
+          "time": "2026-11-12T20:00:00+09:00",
+          "min": 3000,
+          "max": 3500,
+          "congestionLevel": "여유",
+          "sourceLabel": "20시"
+        },
+        {
+          "time": "2026-11-12T21:00:00+09:00",
+          "min": 3000,
+          "max": 3500,
+          "congestionLevel": "여유",
+          "sourceLabel": "21시"
+        }
+      ],
+      "forecast": [
+        {
+          "time": "2026-11-12T23:00:00+09:00",
+          "min": 2500,
+          "max": 3000,
+          "congestionLevel": "여유",
+          "sourceLabel": "23시"
+        },
+        {
+          "time": "2026-11-13T00:00:00+09:00",
+          "min": 2000,
+          "max": 2500,
+          "congestionLevel": "여유",
+          "sourceLabel": "11/13 0시"
+        },
+        {
+          "time": "2026-11-13T01:00:00+09:00",
+          "min": 2000,
+          "max": 2500,
+          "congestionLevel": "여유",
+          "sourceLabel": "01시"
+        },
+        {
+          "time": "2026-11-13T02:00:00+09:00",
+          "min": 1500,
+          "max": 2000,
+          "congestionLevel": "여유",
+          "sourceLabel": "02시"
+        },
+        {
+          "time": "2026-11-13T03:00:00+09:00",
+          "min": 1500,
+          "max": 2000,
+          "congestionLevel": "여유",
+          "sourceLabel": "03시"
+        },
+        {
+          "time": "2026-11-13T04:00:00+09:00",
+          "min": 1500,
+          "max": 2000,
+          "congestionLevel": "여유",
+          "sourceLabel": "04시"
+        },
+        {
+          "time": "2026-11-13T05:00:00+09:00",
+          "min": 2000,
+          "max": 2500,
+          "congestionLevel": "여유",
+          "sourceLabel": "05시"
+        },
+        {
+          "time": "2026-11-13T06:00:00+09:00",
+          "min": 2500,
+          "max": 3000,
+          "congestionLevel": "여유",
+          "sourceLabel": "06시"
+        },
+        {
+          "time": "2026-11-13T07:00:00+09:00",
+          "min": 3000,
+          "max": 3500,
+          "congestionLevel": "여유",
+          "sourceLabel": "07시"
+        },
+        {
+          "time": "2026-11-13T08:00:00+09:00",
+          "min": 3000,
+          "max": 3500,
+          "congestionLevel": "여유",
+          "sourceLabel": "08시"
+        },
+        {
+          "time": "2026-11-13T09:00:00+09:00",
+          "min": 3000,
+          "max": 3500,
+          "congestionLevel": "여유",
+          "sourceLabel": "09시"
+        },
+        {
+          "time": "2026-11-13T10:00:00+09:00",
+          "min": 3500,
+          "max": 4000,
+          "congestionLevel": "보통",
+          "sourceLabel": "10시"
+        }
+      ],
+      "fetchedAt": "2026-11-12T13:55:21.363095+00:00",
+      "sourceUrl": "https://data.seoul.go.kr/SeoulRtd/map?hotspotNm=%EC%84%9C%EC%9A%B8%EC%88%B2%EA%B3%B5%EC%9B%90&x=37.542963&y=127.037648",
+      "datasetUrl": "https://data.seoul.go.kr/dataList/OA-21778/A/1/datasetView.do",
+      "sourceType": "official_dashboard_population_estimate",
+      "verification": "official",
+      "fieldVerified": false,
+      "aggregationAreaDefinition": "Official Seoul 121-hotspot area, downloaded WGS84 polygon; not an administrative or residential boundary.",
+      "geometrySource": {
+        "file": "sources/population/seoul-hotspots-121.zip",
+        "sha256": "fda69cd2ee3812103931cfd0ef1a0146336f06a23b6e1c2e4f9e0653620262ac",
+        "datasetUrl": "https://data.seoul.go.kr/dataList/OA-21778/A/1/datasetView.do",
+        "sourcePublishedDate": "2026-04-14",
+        "crs": "EPSG:4326"
+      },
+      "measurementDescription": "공식 권역에 존재하는 인구의 통신자료 기반 추정 범위입니다. 거주자를 포함하며 관광객 수·보행 통과량이 아닙니다. 인원 차트 기준시각은 시 단위이고 정확한 측정 분은 제공되지 않습니다.",
+      "rawSources": {
+        "population": "sources/population/snapshots/20261112T135521365387Z/forest-congestion.json",
+        "latestSpatialTime": "sources/population/snapshots/20261112T135521365387Z/forest-latest.json"
+      }
+    }
+  ],
+  "attribution": "서울특별시 · 서울 실시간 도시데이터 · 공공누리 제1유형(출처표시)",
+  "sourceLicense": {
+    "name": "공공누리 제1유형",
+    "url": "https://data.seoul.go.kr/dataList/OA-21778/A/1/datasetView.do",
+    "attributionRequired": true
+  },
+  "coverage": "Two named official hotspot areas only. Values do not cover all of Seongsu or count individual street pedestrians.",
+  "sourceGeometryFeatureCount": 121,
+  "rawSnapshotDirectory": "sources/population/snapshots/20261112T135521365387Z",
+  "automaticRefresh": false,
+  "collectionDescription": "Manual snapshot. Browser manual refresh queries four fixed public dashboard CORS endpoints; user location is never sent."
+}

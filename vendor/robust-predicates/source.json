@@ -1,0 +1,21 @@
+{
+  "version": "3.0.3",
+  "repository": "https://github.com/mourner/robust-predicates",
+  "files": [
+    {
+      "file": "orient2d.js",
+      "url": "https://unpkg.com/robust-predicates@3.0.3/esm/orient2d.js",
+      "sha256": "ba1af2b1ea71924fa2e0a3e50b8972d3a83ab9a9f406dd73e851c9763a8eb741"
+    },
+    {
+      "file": "util.js",
+      "url": "https://unpkg.com/robust-predicates@3.0.3/esm/util.js",
+      "sha256": "7b6ed8737cbee96fb413a312e6aaadd84ce9e9594847949f7b4bc8b3dac2cd14"
+    },
+    {
+      "file": "LICENSE",
+      "url": "https://unpkg.com/robust-predicates@3.0.3/LICENSE",
+      "sha256": "88d9b4eb60579c191ec391ca04c16130572d7eedc4a86daa58bf28c6e14c9bcd"
+    }
+  ]
+}
