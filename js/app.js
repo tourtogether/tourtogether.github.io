@@ -9,6 +9,7 @@ import {parseTeamBundle,emptyTeamBundle} from './team-data.js';
 import {SPACE_CATEGORIES,spaceCategory,spaceStyle,spaceTranslations} from './categories.js';
 import {initPopulationUI} from './population-ui.js';
 import {refreshPopulation} from './population-data.js';
+import {openState} from './live-status.js';
 
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -74,6 +75,7 @@ function distance([lng,lat]){
  const dx=(lng-state.position.lng)*111195*Math.cos(lat*Math.PI/180),dy=(lat-state.position.lat)*111195;
  const m=Math.hypot(dx,dy);return `${t('straightDistance')} ${m<1000?Math.round(m)+' m':(m/1000).toFixed(1)+' km'}`;
 }
+function liveBadge(p){if(isDemo(p))return '';const s=openState(p.hours?.ko);if(!s)return '';const k=p.category==='recycling'?(s==='open'?'dropNow':'dropClosed'):(s==='open'?'openNow':'closedNow');return `<span class="live-badge ${s}"><span class="live-dot"></span>${esc(t(k))}</span>`;}
 function badge(p){return `<span class="record-badge ${isDemo(p)?'demo-record':''}">${icon(isDemo(p)?'info':'check')}${esc(t(p.verification))}</span>`;}
 function filtered(){
  const q=state.query.trim().normalize('NFKC').toLocaleLowerCase();
@@ -88,12 +90,26 @@ function filtered(){
 function renderList(){
  const activeId=document.activeElement?.dataset?.placeId;
  const places=filtered();$('result-count').textContent=places.length;
- $('place-list').innerHTML=places.map(f=>{const p=f.properties;return `<button class="place-row ${state.selected?.properties.id===p.id?'is-selected':''}" data-place-id="${esc(p.id)}"><span class="place-row-icon ${esc(p.category)}">${icon(p.category)}</span><span class="place-row-main"><strong>${esc(name(p.names))}</strong><span class="place-meta">${esc(t(p.category))} · ${esc(name(p.address))}</span>${badge(p)}<span class="place-hours">${esc(name(p.hours))}</span></span><span class="place-row-arrow">${icon('chevron')}</span></button>`;}).join('');
+ $('place-list').innerHTML=places.map(f=>{const p=f.properties;return `<button class="place-row ${state.selected?.properties.id===p.id?'is-selected':''}" data-place-id="${esc(p.id)}"><span class="place-row-icon ${esc(p.category)}">${icon(p.category)}</span><span class="place-row-main"><strong>${esc(name(p.names))}</strong><span class="place-meta">${esc(t(p.category))} · ${esc(name(p.address))}</span>${badge(p)}${liveBadge(p)}<span class="place-hours">${esc(name(p.hours))}</span></span><span class="place-row-arrow">${icon('chevron')}</span></button>`;}).join('');
  $('empty-state').hidden=places.length>0;
  document.querySelectorAll('[data-category]').forEach(el=>{const active=el.dataset.category===state.category;el.classList.toggle('selected',active);el.setAttribute('aria-pressed',String(active));});
  $('place-list').querySelectorAll('[data-place-id]').forEach(el=>el.onclick=()=>selectPlace(places.find(f=>f.properties.id===el.dataset.placeId)));
  if(activeId)[...$('place-list').querySelectorAll('[data-place-id]')].find(e=>e.dataset.placeId===activeId)?.focus({preventScroll:true});
 }
+function drawSubway(){try{
+ if(!map.getPane('subway')){map.createPane('subway').style.zIndex=450;const sp=map.createPane('subwayLabels');sp.style.zIndex=640;sp.style.pointerEvents='none';}
+ const renderer=L.svg({pane:'subway'});
+ const line2=(landcoverLines.features||[]).filter(f=>f.properties?.names?.ko==='2호선'&&f.geometry?.type==='LineString');
+ if(!line2.length)return;
+ const layer=L.layerGroup().addTo(map);
+ for(const f of line2){const ll=f.geometry.coordinates.map(([x,y])=>[y,x]);
+  L.polyline(ll,{renderer,color:'#ffffff',weight:9,opacity:.95,interactive:false}).addTo(layer);
+  L.polyline(ll,{renderer,color:'#00a84d',weight:5,opacity:.95,interactive:false}).addTo(layer);}
+ const pts=line2.flatMap(f=>f.geometry.coordinates);
+ const snap=([lat,lng])=>{let b=null,d=1e9;for(const [x,y] of pts){const dd=(x-lng)**2+(y-lat)**2;if(dd<d){d=dd;b=[y,x];}}return d<4e-6?b:[lat,lng];};
+ for(const [ko,key,pos] of [['성수','stSeongsu',[37.54458,127.05596]],['뚝섬','stTtukseom',[37.54717,127.04737]]]){
+  L.marker(snap(pos),{pane:'subwayLabels',interactive:false,keyboard:false,icon:L.divIcon({className:'subway-station',html:`<span class="st-ring"></span><span class="st-label"><b>2</b>${esc(t(key))}</span>`,iconSize:[16,16],iconAnchor:[8,8]})}).addTo(layer);}
+}catch(e){}}
 function renderMap(){
  if(!map)return;
  const zoneKey=[dataRevision,state.mode,state.lang,...visibleKinds].join(':');
@@ -130,7 +146,7 @@ function renderDetail(f,updateUrl=true){
  const website=`https://map.naver.com/p/search/${encodeURIComponent(p.names.ko)}`;
  const route=`https://map.kakao.com/link/to/${encodeURIComponent(p.names.ko)},${coords[1]},${coords[0]}`;
  const source=[p.originalSourceUrl,p.sourceUrl].find(url=>typeof url==='string'&&url.startsWith('https://'))||'';
- $('detail-content').innerHTML=`<div class="detail-hero">${icon(p.category)}</div><div class="detail-body"><div class="detail-category">${esc(t(p.category))}</div><h2 id="detail-name" tabindex="-1">${esc(name(p.names))}</h2>${badge(p)}<div class="detail-distance">${esc(distance(coords))}</div><p class="detail-note ${isDemo(p)?'sample-note':''}">${esc(t(isDemo(p)?'samplePlace':p.verification==='map_record'?'mapRecordNote':'notLive'))}</p><div class="detail-info"><span>${icon('pin')}</span><div><small>${esc(t('address'))}</small><span id="detail-address">${esc(name(p.address))}</span></div></div><div class="detail-info"><span>${icon('clock')}</span><div><small>${esc(t('hours'))}</small>${esc(name(p.hours))}</div></div><div class="detail-buttons">${isDemo(p)?'':`<a class="primary-button" href="${esc(route)}" target="_blank" rel="noopener noreferrer">${icon('arrow')}${esc(t('directions'))}</a><button class="secondary-button" id="place-save" aria-pressed="${saved.has(p.id)}">${icon('bookmark')}${esc(t(saved.has(p.id)?'saved':'save'))}</button>`}<button class="secondary-button" id="address-copy">${icon('copy')}${esc(t('copy'))}</button></div>${isDemo(p)?'':`<div class="detail-links"><a href="${esc(website)}" target="_blank" rel="noopener noreferrer">${esc(t('naver'))}</a><button id="place-share" class="text-button">${esc(t('share'))}</button></div><p class="detail-note">${esc(t('externalNote'))}</p><div class="detail-source">${esc(t('checkedAt'))}: ${esc(p.checkedAt)}<br><a href="${esc(source)}" target="_blank" rel="noopener noreferrer">${esc(t('source'))}</a></div>`}</div>`;
+ $('detail-content').innerHTML=`<div class="detail-hero">${icon(p.category)}</div><div class="detail-body"><div class="detail-category">${esc(t(p.category))}</div><h2 id="detail-name" tabindex="-1">${esc(name(p.names))}</h2>${badge(p)}<div class="detail-distance">${esc(distance(coords))}</div><p class="detail-note ${isDemo(p)?'sample-note':''}">${esc(t(isDemo(p)?'samplePlace':p.verification==='map_record'?'mapRecordNote':'notLive'))}</p><div class="detail-info"><span>${icon('pin')}</span><div><small>${esc(t('address'))}</small><span id="detail-address">${esc(name(p.address))}</span></div></div><div class="detail-info"><span>${icon('clock')}</span><div><small>${esc(t('hours'))}</small>${liveBadge(p)}${liveBadge(p)?'<br>':''}${esc(name(p.hours))}</div></div><div class="detail-buttons">${isDemo(p)?'':`<a class="primary-button" href="${esc(route)}" target="_blank" rel="noopener noreferrer">${icon('arrow')}${esc(t('directions'))}</a><button class="secondary-button" id="place-save" aria-pressed="${saved.has(p.id)}">${icon('bookmark')}${esc(t(saved.has(p.id)?'saved':'save'))}</button>`}<button class="secondary-button" id="address-copy">${icon('copy')}${esc(t('copy'))}</button></div>${isDemo(p)?'':`<div class="detail-links"><a href="${esc(website)}" target="_blank" rel="noopener noreferrer">${esc(t('naver'))}</a><button id="place-share" class="text-button">${esc(t('share'))}</button></div><p class="detail-note">${esc(t('externalNote'))}</p><div class="detail-source">${esc(t('checkedAt'))}: ${esc(p.checkedAt)}<br><a href="${esc(source)}" target="_blank" rel="noopener noreferrer">${esc(t('source'))}</a></div>`}</div>`;
  $('address-copy').onclick=()=>copyText(name(p.address),'copied');
  if($('place-save'))$('place-save').onclick=()=>{
   if(saved.has(p.id))saved.delete(p.id);else saved.add(p.id);
@@ -378,11 +394,14 @@ async function boot(){
  teamData=workspace.getBundle();refreshData();
  routeUI=initRouteUI({...callbacks,onOpen:()=>openTools('routes'),onStatus:status});
  populationUI=initPopulationUI({...callbacks,getData:()=>populationData,onOpen:()=>openTools('population'),onClose:()=>syncNav('map'),onRefresh:async()=>{try{populationData=await refreshPopulation(populationData);}catch(error){populationData={...populationData,refreshStatus:'failed'};}return populationData;}});
+ setInterval(()=>{if(document.hidden)return;renderList();if(state.selected&&!$('detail-panel').hidden)renderDetail(state.selected,false);},60000);
+ const autoPopulation=()=>{if(!document.hidden)$('population-refresh')?.click();};setTimeout(autoPopulation,1500);setInterval(autoPopulation,600000);
  $('route-close').addEventListener('click',()=>syncNav('map'));
  for(const id of ['editor-close','issue-close','coverage-close','feedback-close','bin-directory-close'])$(id).addEventListener('click',()=>syncNav('map'));
  map.on('click',e=>{if(workspace.isPicking())workspace.pick(e.latlng);else if(routeUI.isPicking())routeUI.pick(e.latlng);});
  $('info-dialog').addEventListener('close',()=>{const active=[['route','routes'],['population','population'],['editor','edit'],['issue','issues'],['coverage','coverage'],['feedback','about']].find(([id])=>!$(id+'-panel').hidden);syncNav(active?.[1]||'map');});
  engine=makeEngine(allZones(),'live');
+ drawSubway();
  bind();applyLanguage();if(partial)status('dataPartial');
  const shared=livePlaces.find(f=>f.properties.id===params.get('place'));
  if(shared)selectPlace(shared);

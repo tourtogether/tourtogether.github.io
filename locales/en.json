@@ -138,5 +138,13 @@
   "okNight": "Got it",
   "moreManners": "More visiting etiquette",
   "smokeFind": "Where to smoke",
-  "boothNeedLocation": "Turn on your location to find the nearest smoking booth."
+  "boothNeedLocation": "Turn on your location to find the nearest smoking booth.",
+  "openNow": "Open now",
+  "closedNow": "Closed now",
+  "dropNow": "Drop-off open now",
+  "dropClosed": "Not drop-off time now",
+  "liveBasis": "Based on listed hours",
+  "brandSub": "Seongsu Fair Travel Map",
+  "stSeongsu": "Seongsu",
+  "stTtukseom": "Ttukseom"
 }

@@ -138,5 +138,13 @@
   "okNight": "わかりました",
   "moreManners": "訪問マナーをもっと見る",
   "smokeFind": "喫煙できる場所",
-  "boothNeedLocation": "現在地をオンにすると、最寄りの喫煙ブースをお知らせします。"
+  "boothNeedLocation": "現在地をオンにすると、最寄りの喫煙ブースをお知らせします。",
+  "openNow": "今利用できます",
+  "closedNow": "今は営業時間外",
+  "dropNow": "今出せます",
+  "dropClosed": "今は排出時間外",
+  "liveBasis": "記載の時間に基づく",
+  "brandSub": "聖水フェアトラベルマップ",
+  "stSeongsu": "聖水",
+  "stTtukseom": "トゥクソム"
 }

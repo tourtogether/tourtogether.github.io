@@ -138,5 +138,13 @@
   "okNight": "知道了",
   "moreManners": "查看更多到访礼仪",
   "smokeFind": "哪里可以吸烟",
-  "boothNeedLocation": "开启定位即可告诉您最近的吸烟亭。"
+  "boothNeedLocation": "开启定位即可告诉您最近的吸烟亭。",
+  "openNow": "现在可使用",
+  "closedNow": "现在不在开放时间",
+  "dropNow": "现在可投放",
+  "dropClosed": "现在不是投放时间",
+  "liveBasis": "基于登记时间",
+  "brandSub": "圣水公平旅行地图",
+  "stSeongsu": "圣水",
+  "stTtukseom": "纛岛"
 }

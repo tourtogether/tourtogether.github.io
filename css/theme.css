@@ -1,0 +1,12 @@
+/* 2호선 초록은 지도 위 선로·역 표시에만 사용하고, 화면 전체는 기본 초록을 유지한다 */
+:root{--line2:#00a84d}
+/* 배경지도(OSM)를 채도 낮게 → 우리 구역·핀이 또렷하게 */
+.leaflet-tile-pane{filter:saturate(.35) brightness(1.06) contrast(.92)}
+.brand-sub{display:inline-flex;align-items:center;gap:6px;margin-top:4px;font-size:11px;font-weight:700;color:var(--green)}
+.brand-sub::before{content:'';width:8px;height:8px;border-radius:50%;border:2.5px solid var(--green);background:#fff}
+/* 지도 위 2호선 역 표시 */
+.subway-station{position:relative}
+.subway-station .st-ring{position:absolute;inset:0;border-radius:50%;background:#fff;border:3.5px solid var(--line2);box-shadow:0 1px 4px #0003}
+.subway-station .st-label{position:absolute;left:20px;top:-3px;white-space:nowrap;display:inline-flex;align-items:center;gap:5px;background:#fff;border:1.5px solid var(--line2);border-radius:20px;padding:1px 9px 1px 3px;font-size:12px;font-weight:800;color:#1e3b2c;box-shadow:0 1px 4px #0002}
+.subway-station .st-label b{display:inline-grid;place-items:center;width:17px;height:17px;border-radius:50%;background:var(--line2);color:#fff;font-size:10.5px}
+.leaflet-pane>svg{width:auto!important;height:auto!important;display:inline!important;flex-shrink:initial}

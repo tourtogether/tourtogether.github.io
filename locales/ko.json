@@ -138,5 +138,13 @@
   "okNight": "알겠어요",
   "moreManners": "방문 에티켓 더 보기",
   "smokeFind": "담배 피울 곳",
-  "boothNeedLocation": "내 위치를 켜면 가장 가까운 흡연부스를 알려드려요."
+  "boothNeedLocation": "내 위치를 켜면 가장 가까운 흡연부스를 알려드려요.",
+  "openNow": "지금 이용 가능",
+  "closedNow": "지금은 운영 시간 아님",
+  "dropNow": "지금 배출 가능",
+  "dropClosed": "지금은 배출 시간 아님",
+  "liveBasis": "운영시간 원문 기준",
+  "brandSub": "성수 공정여행 지도",
+  "stSeongsu": "성수",
+  "stTtukseom": "뚝섬"
 }

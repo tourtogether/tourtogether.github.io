@@ -18,7 +18,7 @@
       setTimeout(function(){card.hidden=true},2200);
     });
   });
-  document.getElementById('feedback-close').addEventListener('click',function(){card.hidden=true;mark('dismissed');});
+  document.getElementById('fb-card-close').addEventListener('click',function(){card.hidden=true;mark('dismissed');});
   var delay=params.has('feedbacknow')?500:30000;
   setTimeout(function(){if(!done())card.hidden=false;},delay);
 })();
