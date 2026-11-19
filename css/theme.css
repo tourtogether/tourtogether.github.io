@@ -10,3 +10,10 @@
 .subway-station .st-label{position:absolute;left:20px;top:-3px;white-space:nowrap;display:inline-flex;align-items:center;gap:5px;background:#fff;border:1.5px solid var(--line2);border-radius:20px;padding:1px 9px 1px 3px;font-size:12px;font-weight:800;color:#1e3b2c;box-shadow:0 1px 4px #0002}
 .subway-station .st-label b{display:inline-grid;place-items:center;width:17px;height:17px;border-radius:50%;background:var(--line2);color:#fff;font-size:10.5px}
 .leaflet-pane>svg{width:auto!important;height:auto!important;display:inline!important;flex-shrink:initial}
+.brand-org{display:block;margin-top:3px;font-size:10.5px;font-weight:500;color:#7a8a80;line-height:1.4;word-break:keep-all}
+@media(max-width:760px){
+ .brand-header>div{flex-wrap:wrap;row-gap:2px;column-gap:8px;min-width:0}
+ .brand-header h1{white-space:nowrap}
+ .brand-sub{margin-top:0;white-space:nowrap;font-size:10.5px}
+ .brand-org{flex-basis:100%;margin-top:0;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+}
