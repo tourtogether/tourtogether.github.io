@@ -187,18 +187,34 @@ function renderPosition(sample,isVirtual=false){
  state.position=sample;
 }
 function evaluate(sample,now){
- const result=engine.update(sample,now);
+ const result=engine.update(sample,now);state.alertPos=sample;
  if(result.status==='inaccurate'||result.status==='stale'){status('inaccurate');return result;}
  for(const event of result.events){
   if(event.type==='exit'){if(state.lastAlert?.zoneId===event.zoneId&&!result.insideIds.includes(state.lastAlert.zoneId)){$('zone-alert').hidden=true;state.lastAlert=null;}continue;}
   const zone=engine.zones.find(z=>z.properties.id===event.zoneId);
   state.lastAlert={type:event.type,zoneId:event.zoneId,kind:zone?.properties.kind,verification:zone?.properties.verification||'map_record'};
-  renderAlertText();
-  $('zone-alert').hidden=false;
+  const wasHidden=$('zone-alert').hidden;renderAlertText();
+  $('zone-alert').hidden=false;if(wasHidden)try{navigator.vibrate?.([120,60,120]);}catch{}
  }
  return result;
 }
-function renderAlertText(){const e=state.lastAlert;if(!e)return;$('alert-title').textContent=t(e.kind==='no_smoking'?'noSmokingTitle':e.type==='nearby'?'nearbyTitle':e.type==='current'?'currentTitle':'entryTitle');$('zone-alert').querySelector('.mini-badge').textContent=t(e.verification);$('zone-alert').querySelector('[data-i18n="alertBody"]').textContent=t(e.type==='nearby'?'nearbyBody':'alertBody');}
+function nearestPlace(categories,from){if(!from)return null;let best=null;for(const f of allPlaces()){if(!categories.includes(f.properties.category)||isDemo(f))continue;const [lng,lat]=f.geometry.coordinates;const m=Math.hypot((lng-from.lng)*111195*Math.cos(lat*Math.PI/180),(lat-from.lat)*111195);if(!best||m<best.m)best={f,m};}return best;}
+const walkMinutes=m=>Math.max(1,Math.round(m*1.3/70));
+const isNight=()=>{const q=new URLSearchParams(location.search);if(q.has('night'))return true;if(q.has('day'))return false;const h=new Date().getHours();return h>=22||h<6;};
+function renderAlertText(){const e=state.lastAlert;if(!e)return;const el=$('zone-alert');const night=isNight();el.classList.add('v2');el.classList.toggle('night',night);
+ const booth=nearestPlace(['smoking'],state.alertPos||state.position);
+ const acts=night?[['🤫','actQuiet2'],['🚭','actNoSmoke'],['🔦','actFlash']]:[['🚭','actNoSmoke'],['🤫','actQuiet'],['📵','actPhoto']];
+ const boothRow=booth?`<button class="za-row za-booth" id="alert-booth"><span>🚬 ${esc(t('boothNear'))} · <b>${esc(t('walkAbout'))} ${walkMinutes(booth.m)}${esc(t('minUnit'))}</b> (${Math.round(booth.m)}m)</span><span class="za-go">${esc(t('guide'))} →</span></button>`:'';
+ const nightRow=night?`<button class="za-row" id="alert-route"><span>${esc(t('avoidRoute'))}</span><span class="za-go">${esc(t('careRoute'))} →</span></button>`:'';
+ el.innerHTML=`<div class="za-head"><span class="za-ico" aria-hidden="true">${night?'🌙':'🏠'}</span><div><small>${esc(t(night?'za2LabelNight':'za2Label'))}</small><h2 id="alert-title">${esc(t(night?'za2TitleNight':'za2Title'))}</h2></div><button id="alert-dismiss" class="icon-button za-x" aria-label="${esc(t('close'))}">${icon('close')}</button></div><div class="za-acts">${acts.map(([i,k])=>`<div class="za-act${k==='actNoSmoke'?' za-smoke':''}"><span aria-hidden="true">${i}</span>${esc(t(k))}</div>`).join('')}</div>${boothRow}${nightRow}<p class="za-fine">${esc(t('buttFine'))}</p><button id="alert-ok" class="za-ok">${esc(t(night?'okNight':'okDay'))}</button><button id="alert-more" class="text-button za-more">${esc(t('moreManners'))}</button>`;
+ const hide=()=>{el.hidden=true;};$('alert-dismiss').onclick=hide;$('alert-ok').onclick=hide;$('alert-more').onclick=showManners;
+ if(booth)$('alert-booth').onclick=()=>{hide();if(state.mode==='demo')map.setView([booth.f.geometry.coordinates[1],booth.f.geometry.coordinates[0]],17);else selectPlace(booth.f);};
+ if(night)$('alert-route').onclick=()=>{hide();document.querySelector('[data-nav="routes"]')?.click();};
+}
+function findSmoking(){const booth=nearestPlace(['smoking'],state.position);
+ document.querySelector('.chip[data-category="smoking"]')?.click();
+ if(booth){selectPlace(booth.f);$('toast').textContent=`🚬 ${t('boothNear')} · ${t('walkAbout')} ${walkMinutes(booth.m)}${t('minUnit')} (${Math.round(booth.m)}m)`;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,4200);}
+ else toast('boothNeedLocation');}
 function startLive(){
  setMode('live');$('demo-panel').hidden=true;
  if(!window.isSecureContext){status('secureRequired');return;}
@@ -228,7 +244,7 @@ function startLive(){
   // Unavailable/timeout can be temporary: keep watching so a fresh fix can recover.
   if(error.code===1)stopLocation();
   else{state.position=null;locationLayer.clearLayers();}
-  clearTimeout(positionExpiry);$('zone-alert').hidden=true;engine.invalidate();status(error.code===1?'denied':'positionError');
+  if(error.code===1){clearTimeout(positionExpiry);$('zone-alert').hidden=true;engine.invalidate();}status(error.code===1?'denied':'positionError');
   if(state.selected)renderDetail(state.selected,false);
  },MAP_CONFIG.geolocation);
 }
@@ -303,7 +319,7 @@ function bind(){
  document.addEventListener('click',e=>{const button=e.target.closest('[data-only-space],#layers-all');if(!button)return;visibleKinds.clear();if(button.id==='layers-all')SPACE_CATEGORIES.forEach(c=>visibleKinds.add(c.id));else visibleKinds.add(button.dataset.onlySpace);syncSpaceInputs();renderMap();});
  $('zoom-in').onclick=()=>map.zoomIn();$('zoom-out').onclick=()=>map.zoomOut();$('gps-button').onclick=startLive;
  $('alert-dismiss').onclick=()=>$('zone-alert').hidden=true;$('alert-more').onclick=showManners;
- $('demo-open').onclick=openDemo;$('demo-close').onclick=()=>{setMode('live');$('demo-panel').hidden=true;map.setView(MAP_CONFIG.center,MAP_CONFIG.zoom);};
+ $('demo-open').onclick=openDemo;$('smoke-find').onclick=findSmoking;$('demo-close').onclick=()=>{setMode('live');$('demo-panel').hidden=true;map.setView(MAP_CONFIG.center,MAP_CONFIG.zoom);};
  $('demo-exit').onclick=$('demo-close').onclick;
  $('demo-reset').onclick=openDemo;$('demo-next').onclick=nextScene;
  $('demo-play').onclick=()=>{
