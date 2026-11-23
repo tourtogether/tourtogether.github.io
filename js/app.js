@@ -52,7 +52,7 @@ function status(key){state.statusKey=key;$('location-status').textContent=t(key)
 function toast(key){$('toast').textContent=t(key);$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,3200);}
 function applyLanguage(){
  document.documentElement.lang=state.lang==='zh'?'zh-Hans':state.lang;
- document.querySelectorAll('[data-i18n]').forEach(el=>el.textContent=t(el.dataset.i18n));
+ document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n,v=t(k);if(v!==k||!el.textContent.trim())el.textContent=v;});
  document.querySelectorAll('[data-placeholder]').forEach(el=>{el.placeholder=t(el.dataset.placeholder);el.setAttribute('aria-label',t(el.dataset.placeholder));});
  document.querySelectorAll('[data-i18n-label]').forEach(el=>{el.setAttribute('aria-label',t(el.dataset.i18nLabel));el.title=t(el.dataset.i18nLabel);});
  $('language').value=state.lang;
@@ -306,8 +306,8 @@ function openDemo(){
 }
 function nextScene(){if(state.scene<scenes.length-1){state.scene++;feedScene();}if(state.scene===scenes.length-1)stopAuto();}
 function bind(){
- const compact=matchMedia('(max-width:760px) and (max-height:700px)');
- const syncCompact=()=>{document.querySelector('.sidebar').classList.toggle('collapsed',compact.matches);$('list-toggle').setAttribute('aria-expanded',String(!compact.matches));state.legendExpanded=!compact.matches;if(map)renderSpaceLegend();};
+ const compact=matchMedia('(max-width:760px) and (max-height:700px)');const narrow=matchMedia('(max-width:760px)');
+ const syncCompact=()=>{document.querySelector('.sidebar').classList.toggle('collapsed',compact.matches);$('list-toggle').setAttribute('aria-expanded',String(!compact.matches));state.legendExpanded=!narrow.matches;if(map)renderSpaceLegend();};
  syncCompact();compact.addEventListener('change',syncCompact);
  $('language').onchange=e=>{state.lang=e.target.value;try{localStorage.setItem('together.language',JSON.stringify(state.lang));}catch{}applyLanguage();};
  $('search').oninput=e=>{state.query=e.target.value;renderList();renderMap();};
@@ -358,7 +358,7 @@ async function boot(){
  const paths=[...locales.map(l=>`./locales/${l}.json`),...names.map(n=>`./data/${n}.geojson`),'./data/coverage.json','./data/walk-network.json','./locales/workspace-locales.json','./locales/route-locales.json','./data/street-bin-directory.json','./data/team-data.json','./data/population.json','./data/landcover.geojson','./data/landcover-lines.geojson','./data/landcover-coverage.json'];
  const data=await Promise.all(paths.map(async(path,index)=>{
   const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),/official-zones|landcover/.test(path)?MAP_CONFIG.geometryTimeout:MAP_CONFIG.resourceTimeout);
-  try{const response=await fetch(path,{signal:controller.signal});if(!response.ok)throw new Error('HTTP '+response.status);return await response.json();}
+  try{const response=await fetch(path+(path.includes('?')?'&':'?')+'v=20261123a',{signal:controller.signal,cache:'no-cache'});if(!response.ok)throw new Error('HTTP '+response.status);return await response.json();}
   catch{partial=true;return index<4?{}:{type:'FeatureCollection',features:[]};}
   finally{clearTimeout(timeout);}
  }));

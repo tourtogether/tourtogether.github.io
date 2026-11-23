@@ -17,3 +17,4 @@
  .brand-sub{margin-top:0;white-space:nowrap;font-size:10.5px}
  .brand-org{flex-basis:100%;margin-top:0;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 }
+@media(max-width:760px){.workspace-filters{display:none!important}.map-intro{display:none!important}.sidebar{height:190px!important}.map-stage{top:190px!important}}

@@ -1,5 +1,6 @@
 // 지도 만족도(👍/👎) 카드: 30초 뒤 한 번만 보여주고, 응답은 GoatCounter 이벤트로만 집계한다(개인 식별 없음).
 (function(){
+  try{if(matchMedia('(max-width:760px)').matches){var bd=document.getElementById('bin-directory-open'),fl=document.querySelector('.filters');if(bd&&fl){bd.className='chip';fl.appendChild(bd);}}}catch(e){}
   var KEY='together.feedback';
   var params=new URLSearchParams(location.search);
   if(params.has('demo')){var b=document.getElementById('demo-open');if(b)b.hidden=false;}
