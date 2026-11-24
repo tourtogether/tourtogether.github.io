@@ -3,7 +3,7 @@
   try{if(matchMedia('(max-width:760px)').matches){var bd=document.getElementById('bin-directory-open'),fl=document.querySelector('.filters');if(bd&&fl){bd.className='chip';fl.appendChild(bd);}}}catch(e){}
   var KEY='together.feedback';
   var params=new URLSearchParams(location.search);
-  if(params.has('demo')){var b=document.getElementById('demo-open');if(b)b.hidden=false;}
+  if(params.has('demo')){var b=document.getElementById('demo-open');if(b)b.hidden=false;document.documentElement.classList.add('is-demo');}
   function done(){try{return localStorage.getItem(KEY)}catch(e){return null}}
   function mark(v){try{localStorage.setItem(KEY,v)}catch(e){}}
   var card=document.getElementById('feedback-card');
@@ -21,5 +21,6 @@
   });
   document.getElementById('fb-card-close').addEventListener('click',function(){card.hidden=true;mark('dismissed');});
   var delay=params.has('feedbacknow')?500:30000;
-  setTimeout(function(){if(!done())card.hidden=false;},delay);
+  function tryShow(){if(window.__tourOpen){setTimeout(tryShow,5000);return;}if(!done())card.hidden=false;}
+  setTimeout(tryShow,delay);
 })();

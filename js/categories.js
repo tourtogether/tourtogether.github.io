@@ -1,8 +1,8 @@
 // Space-use colors are independent of the residential evidence used for GPS/routes.
 const rows=[
- ['residential','#9276bd','주거','Residential','住宅','住宅'],
- ['commercial','#65aa8b','상권','Commercial area','商圏','商圈'],
- ['mixed','#d0a551','주거·상권 겹침','Housing in trade area','住宅・商圏の重なり','住宅与商圈重叠'],
+ ['residential','#6f45c9','주거','Residential','住宅','住宅'],
+ ['commercial','#1f9e6a','상권','Commercial area','商圏','商圈'],
+ ['mixed','#e3a13a','주거·상권 겹침','Housing in trade area','住宅・商圏の重なり','住宅与商圈重叠'],
  ['neighborhood_service','#c7b18c','근린생활시설','Neighborhood services','近隣生活施設','社区生活设施'],
  ['retail','#cfac87','판매시설','Retail','販売施設','零售设施'],
  ['food','#c89b70','음식·카페 시설','Food and café premises','飲食・カフェ施設','餐饮咖啡设施'],

@@ -5,11 +5,12 @@
  <meta name="theme-color" content="#176b50"><meta name="description" content="성수동의 여행과 일상이 함께하는 지도. 주거와 상권, 생활 편의시설, 주민을 배려하는 보행 길찾기.">
  <title>성공지도 — TOUR:TOGETHER</title>
  <link rel="icon" href="./assets/logo.svg" type="image/svg+xml">
- <link rel="stylesheet" href="./vendor/leaflet/leaflet.css?v=20261123a"><link rel="stylesheet" href="./css/style.css?v=20261123a"><link rel="stylesheet" href="./css/features.css?v=20261123a">
-<link rel="stylesheet" href="./css/theme.css?v=20261123a">
+ <link rel="stylesheet" href="./vendor/leaflet/leaflet.css?v=20261124a"><link rel="stylesheet" href="./css/style.css?v=20261124a"><link rel="stylesheet" href="./css/features.css?v=20261124a">
+<link rel="stylesheet" href="./css/theme.css?v=20261124a">
  <script src="./vendor/leaflet/leaflet.js" defer></script><section id="feedback-card" class="feedback-card" role="dialog" aria-labelledby="feedback-q" hidden><button id="fb-card-close" class="icon-button feedback-close" data-i18n-label="close" aria-label="닫기"><span data-icon="close"></span></button><p id="feedback-q" class="feedback-q" data-i18n="feedbackQ">이 지도를 보고 성수가 누군가의 생활공간이라는 걸 느꼈나요?</p><div class="feedback-buttons"><button class="feedback-btn" data-vote="yes"><span aria-hidden="true">👍</span><span data-i18n="feedbackYes">네</span></button><button class="feedback-btn" data-vote="no"><span aria-hidden="true">👎</span><span data-i18n="feedbackNo">아니요</span></button></div><p id="feedback-thanks" class="feedback-thanks" data-i18n="feedbackThanks" hidden>응답해 주셔서 고마워요!</p></section>
-<script type="module" src="./js/app.js?v=20261123a"></script>
-<script src="./js/feedback.js?v=20261123a" defer></script>
+<script type="module" src="./js/app.js?v=20261124a"></script>
+<script src="./js/feedback.js?v=20261124a" defer></script>
+<script src="./js/tutorial.js?v=20261124a" defer></script>
 </head>
 <body>
  <a class="skip-link" href="#search">장소 검색으로 이동 / Skip to search</a>
@@ -53,5 +54,6 @@
  <dialog id="info-dialog"><div class="dialog-header"><img src="./assets/logo.svg" width="36" height="36" alt=""><button id="dialog-close" class="icon-button" data-i18n-label="close"><span data-icon="close"></span></button></div><div id="dialog-content"></div></dialog>
  <div id="toast" class="toast" role="status" hidden></div>
 <script data-goatcounter="https://tourtogether.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<div id="tutorial" class="tutorial" role="dialog" aria-modal="true" aria-labelledby="tut-heading" hidden><div class="tut-card"><div class="tut-brand" id="tut-heading"><img src="./assets/logo.svg" width="28" height="28" alt=""><span data-i18n="brand">성공지도</span></div><div class="tut-step"><div class="tut-icon"><span data-icon="home"></span></div><h2 class="tut-title" data-i18n="tut1T">성수 여행은 성공지도와 함께</h2><p class="tut-body" data-i18n="tut1B">성공지도는 주민이 사는 골목을 배려하며 성수를 여행하도록 돕는 지도예요. 지도 위 보라색은 주민이 사는 곳이에요.</p><div class="tut-langs" role="group" aria-label="Language"><button type="button" data-tut-lang="ko">한국어</button><button type="button" data-tut-lang="en">English</button><button type="button" data-tut-lang="ja">日本語</button><button type="button" data-tut-lang="zh">中文</button></div></div><div class="tut-step" hidden><div class="tut-icon"><span data-icon="locate"></span></div><h2 class="tut-title" data-i18n="tut2T">주거지에 들어서면 알려줘요</h2><p class="tut-body" data-i18n="tut2B">위치를 켜 두면 주거지에 들어설 때 낮·밤에 맞는 안내가 떠요. 위치 정보는 저장하지 않아요.</p><button type="button" id="tut-locate" class="tut-locate"><span id="tut-locate-label" data-i18n="tutLocate">📍 위치 켜기</span><span id="tut-located-label" data-i18n="tutLocated" hidden>위치를 켰어요 ✓</span></button></div><div class="tut-step" hidden><div class="tut-icon"><span data-icon="smoking"></span></div><h2 class="tut-title" data-i18n="tut3T">담배는 흡연부스에서</h2><p class="tut-body" data-i18n="tut3B">'담배 피울 곳' 버튼을 누르면 가장 가까운 흡연부스와 걸어서 걸리는 시간을 알려줘요.</p></div><div class="tut-step" hidden><div class="tut-icon"><span data-icon="toilet"></span></div><h2 class="tut-title" data-i18n="tut4T">필요한 곳을 바로 찾아요</h2><p class="tut-body" data-i18n="tut4B">화장실이 지금 이용 가능한지, 주민을 배려한 보행 길, 지금 붐비는 정도까지 메뉴에서 확인하세요.</p></div><div class="tut-dots" aria-hidden="true"><span class="tut-dot on"></span><span class="tut-dot"></span><span class="tut-dot"></span><span class="tut-dot"></span></div><div class="tut-actions"><button type="button" id="tut-skip" class="tut-skip" data-i18n="tutSkip">건너뛰기</button><button type="button" id="tut-next" class="tut-next"><span id="tut-next-label" data-i18n="tutNext">다음</span><span id="tut-start-label" data-i18n="tutStart" hidden>시작하기</span></button></div></div></div>
 </body>
 </html>

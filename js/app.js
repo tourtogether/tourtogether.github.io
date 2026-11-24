@@ -53,6 +53,7 @@ function toast(key){$('toast').textContent=t(key);$('toast').hidden=false;clearT
 function applyLanguage(){
  document.documentElement.lang=state.lang==='zh'?'zh-Hans':state.lang;
  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n,v=t(k);if(v!==k||!el.textContent.trim())el.textContent=v;});
+ document.querySelectorAll('[data-st]').forEach(el=>{el.textContent=t(el.dataset.st);});
  document.querySelectorAll('[data-placeholder]').forEach(el=>{el.placeholder=t(el.dataset.placeholder);el.setAttribute('aria-label',t(el.dataset.placeholder));});
  document.querySelectorAll('[data-i18n-label]').forEach(el=>{el.setAttribute('aria-label',t(el.dataset.i18nLabel));el.title=t(el.dataset.i18nLabel);});
  $('language').value=state.lang;
@@ -108,7 +109,7 @@ function drawSubway(){try{
  const pts=line2.flatMap(f=>f.geometry.coordinates);
  const snap=([lat,lng])=>{let b=null,d=1e9;for(const [x,y] of pts){const dd=(x-lng)**2+(y-lat)**2;if(dd<d){d=dd;b=[y,x];}}return d<4e-6?b:[lat,lng];};
  for(const [ko,key,pos] of [['성수','stSeongsu',[37.54458,127.05596]],['뚝섬','stTtukseom',[37.54717,127.04737]]]){
-  L.marker(snap(pos),{pane:'subwayLabels',interactive:false,keyboard:false,icon:L.divIcon({className:'subway-station',html:`<span class="st-ring"></span><span class="st-label"><b>2</b>${esc(t(key))}</span>`,iconSize:[16,16],iconAnchor:[8,8]})}).addTo(layer);}
+  L.marker(snap(pos),{pane:'subwayLabels',interactive:false,keyboard:false,icon:L.divIcon({className:'subway-station',html:`<span class="st-ring"></span><span class="st-label"><b>2</b><span data-st="${key}">${esc(t(key))}</span></span>`,iconSize:[16,16],iconAnchor:[8,8]})}).addTo(layer);}
 }catch(e){}}
 function renderMap(){
  if(!map)return;
@@ -119,7 +120,7 @@ function renderMap(){
   for(const f of [...allZones()].sort((a,b)=>priority(a)-priority(b))){
    const p=f.properties,category=spaceCategory(f);if(!category||!visibleKinds.has(category))continue;const color=spaceStyle(category).color;
    const footprint=p.geometryRole==='building_footprint';
-   const layer=L.geoJSON(f,{style:{color,weight:footprint?.7:p.spaceCategory==='outdoor'?.2:.8,fillColor:color,fillOpacity:footprint?.55:p.sourceType==='official_commercial_analysis_area'?.10:category==='outdoor'?.16:.4,dashArray:isDemo(p)?'5 5':null}}).addTo(zoneLayer);
+   const commArea=p.sourceType==='official_commercial_analysis_area',resid=category==='residential';const layer=L.geoJSON(f,{style:{color,weight:footprint?(resid?1:.7):commArea?2:p.spaceCategory==='outdoor'?.2:.8,fillColor:color,fillOpacity:footprint?(resid?.78:category==='mixed'?.42:.55):commArea?.2:category==='outdoor'?.16:resid?.5:.4,dashArray:isDemo(p)?'5 5':null}}).addTo(zoneLayer);
    layer.on('click',()=>{if(!workspace?.isPicking()&&!routeUI?.isPicking())showZone(f);});
    if(isDemo(p))layer.bindTooltip(esc(t(p.kind))+' · '+esc(t('demo')),{permanent:true,direction:'center',className:`zone-label ${p.kind==='commercial'?'commercial-label':''}`});
   }
@@ -227,9 +228,9 @@ function renderAlertText(){const e=state.lastAlert;if(!e)return;const el=$('zone
  if(booth)$('alert-booth').onclick=()=>{hide();if(state.mode==='demo')map.setView([booth.f.geometry.coordinates[1],booth.f.geometry.coordinates[0]],17);else selectPlace(booth.f);};
  if(night)$('alert-route').onclick=()=>{hide();document.querySelector('[data-nav="routes"]')?.click();};
 }
-function findSmoking(){const booth=nearestPlace(['smoking'],state.position);
+function findSmoking(){const here=state.position,inScope=here&&(!scope.features.length||scope.features.some(f=>pointInPolygon([here.lng,here.lat],f.geometry)));const base=inScope?here:{lat:37.54458,lng:127.05596};const booth=nearestPlace(['smoking'],base);
  document.querySelector('.chip[data-category="smoking"]')?.click();
- if(booth){selectPlace(booth.f);$('toast').textContent=`🚬 ${t('boothNear')} · ${t('walkAbout')} ${walkMinutes(booth.m)}${t('minUnit')} (${Math.round(booth.m)}m)`;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,4200);}
+ if(booth){selectPlace(booth.f);$('toast').textContent=`🚬 ${inScope?'':t('fromStation')+' · '}${t('boothNear')} · ${t('walkAbout')} ${walkMinutes(booth.m)}${t('minUnit')} (${Math.round(booth.m)}m)`;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,4200);}
  else toast('boothNeedLocation');}
 function startLive(){
  setMode('live');$('demo-panel').hidden=true;
@@ -253,7 +254,7 @@ function startLive(){
    state.position=null;locationLayer.clearLayers();engine.invalidate();$('zone-alert').hidden=true;status('inaccurate');
    if(state.selected)renderDetail(state.selected,false);
   },Math.max(0,DEFAULT_GEOFENCE_CONFIG.maxAge-(Date.now()-sample.timestamp)));
-  if(first){map.setView([sample.lat,sample.lng],16);first=false;}
+  if(first){if(inScope)map.setView([sample.lat,sample.lng],16);else toast('outsideScope');first=false;}
   renderList();if(state.selected)renderDetail(state.selected,false);
  },error=>{
   if(generation!==state.generation)return;
@@ -358,7 +359,7 @@ async function boot(){
  const paths=[...locales.map(l=>`./locales/${l}.json`),...names.map(n=>`./data/${n}.geojson`),'./data/coverage.json','./data/walk-network.json','./locales/workspace-locales.json','./locales/route-locales.json','./data/street-bin-directory.json','./data/team-data.json','./data/population.json','./data/landcover.geojson','./data/landcover-lines.geojson','./data/landcover-coverage.json'];
  const data=await Promise.all(paths.map(async(path,index)=>{
   const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),/official-zones|landcover/.test(path)?MAP_CONFIG.geometryTimeout:MAP_CONFIG.resourceTimeout);
-  try{const response=await fetch(path+(path.includes('?')?'&':'?')+'v=20261123a',{signal:controller.signal,cache:'no-cache'});if(!response.ok)throw new Error('HTTP '+response.status);return await response.json();}
+  try{const response=await fetch(path+(path.includes('?')?'&':'?')+'v=20261124a',{signal:controller.signal,cache:'no-cache'});if(!response.ok)throw new Error('HTTP '+response.status);return await response.json();}
   catch{partial=true;return index<4?{}:{type:'FeatureCollection',features:[]};}
   finally{clearTimeout(timeout);}
  }));
