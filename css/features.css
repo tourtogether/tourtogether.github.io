@@ -146,5 +146,5 @@ body.route-map-view .map-stage .map-warning{
 .tut-locate{margin-top:12px;min-height:42px;padding:0 20px;border:2px solid var(--green);border-radius:999px;background:#fff;color:var(--green);font-size:14.5px;font-weight:700}
 .tut-locate.done{background:#e8f3ee;border-color:#e8f3ee}
 .tut-locate:disabled{opacity:1;color:var(--green)}
-/* 팀 선정·정보 수정 버튼은 시연 주소(?demo)에서만 */
-html:not(.is-demo) #place-curate{display:none!important}
+/* 팀 선정·정보 수정 버튼은 공개 화면에서 숨김 (팀 편집기도 숨김 상태) */
+#place-curate{display:none!important}
